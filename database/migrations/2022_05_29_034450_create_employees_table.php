@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('photo')->nullable();
             $table->string('gender');
             $table->integer('place_of_birth');
-            $table->date('date_of birth');
+            $table->date('date_of_birth');
             $table->text('address');
             $table->softDeletes();
             $table->timestamps();
