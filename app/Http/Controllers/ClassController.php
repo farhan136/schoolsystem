@@ -14,8 +14,8 @@ class ClassController extends Controller
 
     public function index()
     {
-        $data['PARENTTAG'] = "class";
-        return view('admin.class.index', $data);
+        $data['PARENTTAG'] = "employee";
+        return view('admin.employee.index', $data);
     }
 
     public function gridview()
@@ -23,14 +23,19 @@ class ClassController extends Controller
         // $class = Schoolclass::select(['id', 'name', 'teacher_id']);
         $class = DB::table('schoolclasses')
             ->join('employees', 'employees.id', '=', 'schoolclasses.teacher_id')
-            ->select('schoolclasses.name as class_name', 'schoolclasses.id as class_id', 'employees.name as teacher_name')
+            ->select('schoolclasses.name as class_name', 'schoolclasses.id as class_id','schoolclasses.isaktif as class_status', 'employees.name as teacher_name')
             ->get();
 
         return Datatables::of($class)
             ->addColumn('class_action', function ($class) {
                 return '<button  data-id="'.$class->class_id.'" id="tombol_edit" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</button>  <button  data-id="'.$class->class_id.'" id="tombol_hapus" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-delete"></i> Delete</button>';
-            })->rawColumns(['class_action'])
-            ->make();
+            })->editColumn('class_status', function ($class) {
+                if ($class->class_status == 1) {
+                    return 'Active';
+                }else{
+                    return 'Not Active';
+                }
+            })->rawColumns(['class_action'])->make();
 
     }
 
@@ -56,11 +61,6 @@ class ClassController extends Controller
 
         echo "<script>window.opener.reloadDatatable();</script>";
         echo "<script>window.close();</script>";
-    }
-
-    public function show($id)
-    {
-        //
     }
 
     public function edit($id)

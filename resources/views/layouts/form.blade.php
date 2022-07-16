@@ -13,6 +13,9 @@
   <link rel="stylesheet" href="{{asset('/')}}plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('/')}}dist/css/adminlte.min.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.theme.min.css">
+  <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
   @yield('additionalstyle')
 </head>
 <body class="hold-transition">
@@ -24,6 +27,8 @@
 <script src="{{asset('/')}}plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('/')}}dist/js/adminlte.min.js"></script>
+
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 @yield('additionalscript')
 </body>
 </html>

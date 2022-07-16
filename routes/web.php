@@ -11,6 +11,10 @@ Route::group(['middleware'=>'guest'], function(){ //yang berada didalam group in
 
 Route::group(['middleware'=>'auth'], function(){ //yang berada didalam group ini hanyta untuk yang sudah login
     Route::get('/', 'App\Http\Controllers\GeneralController@home')->name('home');
+
+    Route::post('/getcity', 'App\Http\Controllers\GeneralController@getcity');
+    Route::post('/getdistrict', 'App\Http\Controllers\GeneralController@getdistrict');
+    Route::post('/getsubdistrict', 'App\Http\Controllers\GeneralController@getsubdistrict');
     
 
     Route::prefix('class')->group(function () {
@@ -26,8 +30,13 @@ Route::group(['middleware'=>'auth'], function(){ //yang berada didalam group ini
 
     Route::prefix('employee')->group(function () {
         Route::get('/', 'App\Http\Controllers\EmployeeController@index');
+        Route::post('/gridview', 'App\Http\Controllers\EmployeeController@gridview');
         Route::get('/create', 'App\Http\Controllers\EmployeeController@create');
         Route::post('/store', 'App\Http\Controllers\EmployeeController@store');
+        Route::get('/edit/{id}', 'App\Http\Controllers\EmployeeController@edit');
+        Route::get('/show/{id}/{detail}', 'App\Http\Controllers\EmployeeController@edit');
+        Route::post('/update/{id}/{isaktif}', 'App\Http\Controllers\EmployeeController@update');
+        Route::get('/delete/{id}', 'App\Http\Controllers\EmployeeController@destroy');
     });
 
     Route::prefix('parent')->group(function () {
@@ -38,8 +47,12 @@ Route::group(['middleware'=>'auth'], function(){ //yang berada didalam group ini
 
     Route::prefix('student')->group(function () {
         Route::get('/', 'App\Http\Controllers\StudentController@index');
-        Route::get('/create', 'App\Http\Controllers\ClassController@create');
-        Route::post('/store', 'App\Http\Controllers\ClassController@store');
+        Route::post('/gridview', 'App\Http\Controllers\StudentController@gridview');
+        Route::get('/create', 'App\Http\Controllers\StudentController@create');
+        Route::post('/store/{id}/{isaktif}', 'App\Http\Controllers\StudentController@store');
+        Route::get('/edit/{id}', 'App\Http\Controllers\StudentController@create');
+        Route::get('/show/{id}/{detail}', 'App\Http\Controllers\StudentController@create');
+        Route::get('/delete/{id}', 'App\Http\Controllers\StudentController@destroy');
     });
 
 
@@ -47,5 +60,5 @@ Route::group(['middleware'=>'auth'], function(){ //yang berada didalam group ini
 
 });
 
-
+Route::get('/user', 'App\Http\Controllers\UserController@home');
 

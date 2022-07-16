@@ -23,4 +23,5 @@ class Employee extends Model
         'date_of_birth',
         'address',
     ];
+
 }

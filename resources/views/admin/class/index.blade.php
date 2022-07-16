@@ -29,9 +29,10 @@
                 <table id="class_table" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>No</th>
+                    <th style="width:5%">No</th>
                     <th>Nama Kelas</th>
                     <th>Wali Kelas</th>
+                    <th>Status Kelas</th>
                     <th style="width:10%">Action</th>
                   </tr>
                   </thead>
@@ -76,7 +77,8 @@
             {target: 0, data: 'class_id'},
             {target: 1, data: 'class_name'},
             {target: 2, data: 'teacher_name'},
-            {target: 3, data: 'class_action'}
+            {target: 3, data: 'class_status'},
+            {target: 4, data: 'class_action'}
         ]
     });
   }
