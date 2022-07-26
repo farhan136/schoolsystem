@@ -49,12 +49,21 @@ Route::group(['middleware'=>'auth'], function(){ //yang berada didalam group ini
         Route::get('/', 'App\Http\Controllers\StudentController@index');
         Route::post('/gridview', 'App\Http\Controllers\StudentController@gridview');
         Route::get('/create', 'App\Http\Controllers\StudentController@create');
-        Route::post('/store/{id}/{isaktif}', 'App\Http\Controllers\StudentController@store');
+        Route::post('/store/{id?}/{isaktif?}', 'App\Http\Controllers\StudentController@store');
         Route::get('/edit/{id}', 'App\Http\Controllers\StudentController@create');
         Route::get('/show/{id}/{detail}', 'App\Http\Controllers\StudentController@create');
         Route::get('/delete/{id}', 'App\Http\Controllers\StudentController@destroy');
     });
 
+    Route::prefix('subject')->group(function () {
+        Route::get('/', 'App\Http\Controllers\SubjectController@index');
+        Route::post('/gridview', 'App\Http\Controllers\SubjectController@gridview');
+        Route::get('/create', 'App\Http\Controllers\SubjectController@create');
+        Route::post('/store/{id?}/{isaktif?}', 'App\Http\Controllers\SubjectController@store');
+        Route::get('/edit/{id}', 'App\Http\Controllers\SubjectController@create');
+        Route::get('/show/{id}/{detail}', 'App\Http\Controllers\SubjectController@create');
+        Route::get('/delete/{id}', 'App\Http\Controllers\SubjectController@destroy');
+    });
 
     Route::get('/dologout', 'App\Http\Controllers\GeneralController@dologout');
 

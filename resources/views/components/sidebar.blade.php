@@ -78,6 +78,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item <?= $PARENTTAG=='subject'?'menu-open':'' ?>">
+            <a href="{{url('/subject')}}" class="nav-link <?= $PARENTTAG=='subject'?'active':'' ?>">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Master Subject
+              </p>
+            </a>
+          </li>
 
 
         </ul>

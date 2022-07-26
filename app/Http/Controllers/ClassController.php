@@ -14,13 +14,12 @@ class ClassController extends Controller
 
     public function index()
     {
-        $data['PARENTTAG'] = "employee";
-        return view('admin.employee.index', $data);
+        $data['PARENTTAG'] = "class";
+        return view('admin.class.index', $data);
     }
 
     public function gridview()
     {
-        // $class = Schoolclass::select(['id', 'name', 'teacher_id']);
         $class = DB::table('schoolclasses')
             ->join('employees', 'employees.id', '=', 'schoolclasses.teacher_id')
             ->select('schoolclasses.name as class_name', 'schoolclasses.id as class_id','schoolclasses.isaktif as class_status', 'employees.name as teacher_name')
@@ -36,7 +35,6 @@ class ClassController extends Controller
                     return 'Not Active';
                 }
             })->rawColumns(['class_action'])->make();
-
     }
 
     public function create()
@@ -55,7 +53,8 @@ class ClassController extends Controller
         $class = new Schoolclass;
         $class->name = $request->name;
         $class->teacher_id = $request->teacher; 
-        $class->created_at = date("Y-m-d H:i:s"); 
+        $class->created_at = date("Y-m-d H:i:s");
+        $class->isaktif = 1; 
         $class->updated_at = date("Y-m-d H:i:s"); 
         $class->save();
 

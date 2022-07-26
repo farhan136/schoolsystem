@@ -9,10 +9,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('employees', function (Blueprint $table) {
-            $table->integer('province')->nullable();
-            $table->integer('city')->nullable();
-            $table->integer('district')->nullable();
-            $table->integer('subdistrict')->nullable();
+            $table->integer('role')->nullable();
         });
     }
 
