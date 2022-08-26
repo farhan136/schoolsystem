@@ -39,7 +39,7 @@
                   </div>
                   <div class="form-group">
                     <label>Wali Kelas</label>
-                    <select class="form-control select2" style="width: 100%;" name="teacher" autocomplete="off">
+                    <select class="form-control select2" style="width: 100%;" name="teacher" autocomplete="off" id="teacher">
                       <option value="" selected></option>
                       @foreach($employee as $emp)
                       <option value="{{ $emp->id }}">{{ $emp->name }}</option>
@@ -78,41 +78,25 @@
         alert( "Form successful submitted!" );
       }
     });
-    $('#quickForm').validate({
-      rules: {
-        name: {
-          required: true,
-          minlength: 6
-        },
-        teacher: {
-          required: true
-        },
-        terms: {
-          required: true
-        },
-      },
-      messages: {
-        name: {
-          required: "Please enter the class name",
-          minlength: "Your class name must be at least 6 characters long"
-        },
-        teacher: {
-          required: "Please choose the teacher"
-        },
-        terms: "Please accept our terms"
-      },
-      errorElement: 'span',
-      errorPlacement: function (error, element) {
-        error.addClass('invalid-feedback');
-        element.closest('.form-group').append(error);
-      },
-      highlight: function (element, errorClass, validClass) {
-        $(element).addClass('is-invalid');
-      },
-      unhighlight: function (element, errorClass, validClass) {
-        $(element).removeClass('is-invalid');
-      }
-    });
   });
+
+  $('#teacher').on('change', function(){
+    let teacher_id = $('#teacher').val()
+    $.ajax({
+      url : "{{url('/class/checkuniqueteacher')}}",
+      type : 'post',
+      headers: {
+         'X-CSRF-TOKEN': "{{csrf_token()}}",
+      },
+      data : {'id': teacher_id},
+      success: function(ret) {
+          data = JSON.parse(ret);
+          if(data == 'tidak unik'){
+            Swal.fire('Guru yang kamu pilih sudah menjadi wali kelas di kelas lain')
+            $('#teacher').val('')
+          }
+          }
+        })
+      });
 </script>
 @endsection

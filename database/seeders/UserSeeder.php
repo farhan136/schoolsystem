@@ -8,19 +8,14 @@ use App\Models\User;
 
 class UserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         $newUser = new User;
-        $newUser->username = "admin123";
-        $newUser->registration_number ='424434244342443';
-        $newUser->email = "admin123@school.dev";
-        $newUser->password = bcrypt('admin123');
-        $newUser->role_id =1;
+        $newUser->username = "pangeranirawan";
+        $newUser->registration_number ='4244300030';
+        $newUser->email = "prabu.fujiati@yahoo.co.id";
+        $newUser->password = bcrypt('pangeranirawan');
+        $newUser->role_id =3;
         $newUser->save();
     }
 }

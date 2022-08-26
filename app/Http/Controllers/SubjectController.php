@@ -13,6 +13,7 @@ class SubjectController extends Controller
     public function index()
     {
         $data['PARENTTAG'] = "subject";
+        $data['CHILDTAG'] = "subject";
         return view('admin.subjects.index', $data);
     }
 
@@ -73,5 +74,16 @@ class SubjectController extends Controller
         $subject = Subject::find(1);
  
         $subject->delete();
+    }
+
+    public function bank()
+    {
+        $data['PARENTTAG'] = "subject";
+        $data['CHILDTAG'] = "bank";
+        $subject = Subject::select(['id', 'name', 'code'])->get();
+        $data = [
+              'subject'=>$subject, 
+        ];
+        return view('admin.subjects.bank', $data);
     }
 }

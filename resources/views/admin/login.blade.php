@@ -37,10 +37,10 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password" name="password" autocomplete="off">
+          <input type="password" class="form-control" placeholder="Password" name="password" autocomplete="off" id="password">
           <div class="input-group-append">
             <div class="input-group-text">
-              <span class="fas fa-lock"></span>
+              <span class="fas fa-lock" id="hidetransparant"></span>
             </div>
           </div>
         </div>

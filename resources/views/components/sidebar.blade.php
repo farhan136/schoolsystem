@@ -2,6 +2,11 @@
   if (!isset($PARENTTAG)) { //pasang kondisi jika variable parenntag belum disetting controller
     $PARENTTAG = '';
   }
+
+  if (!isset($CHILDTAG)) { //pasang kondisi jika variable parenntag belum disetting controller
+    $CHILDTAG = '';
+  }
+
    ?>
 
   <!-- Main Sidebar Container -->
@@ -79,13 +84,61 @@
             </a>
           </li>
           <li class="nav-item <?= $PARENTTAG=='subject'?'menu-open':'' ?>">
-            <a href="{{url('/subject')}}" class="nav-link <?= $PARENTTAG=='subject'?'active':'' ?>">
+            <a  class="nav-link <?= $PARENTTAG=='subject'?'active':'' ?>">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Master Subject
+                Management Subject
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{url('/subject')}}" class="nav-link <?= $CHILDTAG=='subject'?'active':'' ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Master Subject</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{url('/subject/bank')}}" class="nav-link <?= $CHILDTAG=='bank'?'active':'' ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Bank Question</p>
+                </a>
+              </li>
+            </ul>
           </li>
+          <li class="nav-item <?= $PARENTTAG=='class_management'?'menu-open':'' ?>">
+            <a href="#" class="nav-link <?= $PARENTTAG=='class_management'?'active':'' ?>">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Management Class
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{url('/class/management')}}" class="nav-link <?= $CHILDTAG=='class_management'?'active':'' ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Management Class</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{url('/class/taskexam')}}" class="nav-link <?= $CHILDTAG=='tes'?'active':'' ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tasks and Exams</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{url('/class/dailyreport')}}" class="nav-link <?= $CHILDTAG=='daily_report'?'active':'' ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Daily Report</p>
+                </a>
+              </li>
+            </ul>
+          </li>          
 
 
         </ul>

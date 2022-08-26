@@ -22,9 +22,15 @@ Route::group(['middleware'=>'auth'], function(){ //yang berada didalam group ini
         Route::post('/gridview', 'App\Http\Controllers\ClassController@gridview');
         Route::get('/create', 'App\Http\Controllers\ClassController@create');
         Route::post('/store', 'App\Http\Controllers\ClassController@store');
+        Route::post('/checkuniqueteacher', 'App\Http\Controllers\ClassController@checkuniqueteacher');
         Route::get('/edit/{id}', 'App\Http\Controllers\ClassController@edit');
         Route::post('/update/{id}/{isaktif}', 'App\Http\Controllers\ClassController@update');
         Route::get('/delete/{id}', 'App\Http\Controllers\ClassController@destroy');
+        Route::get('/management/{id?}', 'App\Http\Controllers\ClassController@management');
+        Route::post('/gridviewstudents', 'App\Http\Controllers\ClassController@gridviewstudents');
+        Route::get('/detail/{id}', 'App\Http\Controllers\ClassController@detail');
+        Route::get('/dailyreport/{id?}', 'App\Http\Controllers\ClassController@dailyreport');
+        Route::post('/absencestudents', 'App\Http\Controllers\ClassController@absencestudents');
     });
 
 
@@ -63,6 +69,7 @@ Route::group(['middleware'=>'auth'], function(){ //yang berada didalam group ini
         Route::get('/edit/{id}', 'App\Http\Controllers\SubjectController@create');
         Route::get('/show/{id}/{detail}', 'App\Http\Controllers\SubjectController@create');
         Route::get('/delete/{id}', 'App\Http\Controllers\SubjectController@destroy');
+        Route::get('/bank', 'App\Http\Controllers\SubjectController@bank');
     });
 
     Route::get('/dologout', 'App\Http\Controllers\GeneralController@dologout');

@@ -87,7 +87,7 @@
                   </div>
                   <div class="form-group">
                     <label>Province</label>
-                    <select class="form-control select2" style="width: 100%;" name="province" id="province" autocomplete="off" required>
+                    <select class="form-control select2" style="width: 100%;" name="province" id="province" autocomplete="off" required {{ $disabled }}>
                       <option value="" selected></option>
                       @foreach($provinces as $province)
                         @if($employee->province == $province->prov_id)
@@ -100,7 +100,7 @@
                   </div>
                   <div class="form-group">
                     <label>City</label>
-                    <select class="form-control select2" style="width: 100%;" name="city" id="city" autocomplete="off" required>
+                    <select class="form-control select2" style="width: 100%;" name="city" id="city" autocomplete="off" required {{ $disabled }}>
                       <option value="" selected></option>
                       @foreach($cities2 as $city)
                         @if($employee->city == $city->city_id)
@@ -113,7 +113,7 @@
                   </div>
                   <div class="form-group">
                     <label>District</label>
-                    <select class="form-control select2" style="width: 100%;" name="district" id="district" autocomplete="off" required>
+                    <select class="form-control select2" style="width: 100%;" name="district" id="district" autocomplete="off" required {{ $disabled }}>
                       <option value="" selected></option>
                       @foreach($districts as $district)
                         @if($employee->district == $district->dis_id)
@@ -126,7 +126,7 @@
                   </div>
                   <div class="form-group">
                     <label>Subdistrict</label>
-                    <select class="form-control select2" style="width: 100%;" name="subdistrict" id="subdistrict" autocomplete="off" required>
+                    <select class="form-control select2" style="width: 100%;" name="subdistrict" id="subdistrict" autocomplete="off" required {{ $disabled }}>
                       <option value="" selected></option>
                       @foreach($subdistricts as $subdistrict)
                         @if($employee->subdistrict == $subdistrict->subdis_id)
