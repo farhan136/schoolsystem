@@ -7,6 +7,7 @@ use Illuminate\Support\Collection;
 use App\Models\Subject;
 use Illuminate\Support\Facades\DB;
 use Yajra\Datatables\Datatables;
+use Illuminate\Support\Facades\Auth;
 
 class SubjectController extends Controller
 {
@@ -85,5 +86,46 @@ class SubjectController extends Controller
               'subject'=>$subject, 
         ];
         return view('admin.subjects.bank', $data);
+    }
+
+    public function storebank(Request $request,  $id='')
+    {
+        $user = Auth::user();
+        $trueanswer = '';
+        $falseanswer = '';
+        foreach($request->answer as $key=>$val){
+            if($request->istrue[$key] == 'true'){
+                $trueanswer = $val;
+            }else{
+                $falseanswer .= $val . ';';
+            }
+        }
+
+        DB::table('questions')->insert([
+            'level' => $request->level,
+            'question'  => $request->question,
+            'true_answer'  => $trueanswer,
+            'false_answer'  => $falseanswer,
+            'subject_id'  => $id,
+            'created_by'    => $user->registration_number,
+            'updated_by'    => $user->registration_number,
+            'created_at'    => date('Y-m-d H:i:s'),
+            'updated_at'    => date('Y-m-d H:i:s')
+        ]);
+        return redirect('/subject/bank');
+
+    }
+
+    public function viewbank($id = '')
+    {
+        $questions = DB::table('questions')->where('subject_id', '=', $id)->get();
+        $subjects = DB::table('subjects')->select('name')->where('id', '=', $id)->get();
+        // dd($questions);
+        // print_r($subjects);exit;
+        $data = [
+              'questions'=>$questions, 
+              'subjects' => $subjects[0],
+        ];
+        return view('admin.subjects.viewbank', $data); 
     }
 }

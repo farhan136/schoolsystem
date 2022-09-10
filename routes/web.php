@@ -70,6 +70,8 @@ Route::group(['middleware'=>'auth'], function(){ //yang berada didalam group ini
         Route::get('/show/{id}/{detail}', 'App\Http\Controllers\SubjectController@create');
         Route::get('/delete/{id}', 'App\Http\Controllers\SubjectController@destroy');
         Route::get('/bank', 'App\Http\Controllers\SubjectController@bank');
+        Route::post('/storebank/{id?}/{isaktif?}', 'App\Http\Controllers\SubjectController@storebank');
+        Route::get('/viewbank/{id}', 'App\Http\Controllers\SubjectController@viewbank');
     });
 
     Route::get('/dologout', 'App\Http\Controllers\GeneralController@dologout');

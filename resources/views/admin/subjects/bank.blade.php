@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'Class')
+@section('title', 'Question Bank')
 
 @section('content')
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Class Management</h1>
+            <h1 class="m-0">Question Bank</h1>
           </div>
           
         </div>
@@ -22,8 +22,9 @@
               <h3 class="card-title">{{$rowsubject->name}}</h3><br>
             </div>
               <div class="card-body p-0">
-                <button class="btn btn-xs btn-success card-modal" data-toggle="modal" data-target="#modal-info" data-id="{{$rowsubject->id}}"><i class="glyphicon glyphicon-edit"></i>Question</button>
-                <br><br>
+                <button class="btn btn-xs btn-success card-modal button-view" data-id="{{$rowsubject->id}}">View</button>
+                <button class="btn btn-xs btn-primary card-modal button-create" data-toggle="modal" data-target="#modal-info" data-id="{{$rowsubject->id}}">Create</button>
+                <br>
                 <img src="{{asset('/picture/general/background.jpg')}}" style="width: 100%; height: 200px;">
               </div>
             </div>    
@@ -37,23 +38,64 @@
       <div class="modal-dialog">
         <div class="modal-content bg-default">
           <div class="modal-header">
-          <h4 class="modal-title">Daftar Siswa</h4>
+          <h4 class="modal-title">Create Question</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
           </button>
           </div>
           <div class="modal-body">
-                      <table id="students_table" class="table table-bordered table-striped">
-                        <thead>
-                        <tr>
-                          <th style="width:5%">No</th>
-                          <th>Nama Siswa</th>
-                          <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                      </table>
+            <form id="quickform" method="post">
+                @csrf
+                <div class="card-body question-card">
+                  <div class="question_number">
+                    <div class="form-group">
+                      <label>Level</label>
+                      <input type="number" min="1" max="10" name="level" class="form-control input-question" placeholder="Choose the level of question" autocomplete="off" required>
+                      <label>Pertanyaan</label>
+                      <input type="text" name="question" class="form-control input-question" placeholder="Fill this field" autocomplete="off" required> 
+                      <label>Jawaban</label>
+                      <div class="answer_number">
+                        <div class="row mb-2">
+                          <div class="col-2">
+                            <input type="text" class="form-control radio-answer" name="istrue[]" readonly value="">
+                          </div>
+                          <div class="col-10">
+                            <input type="text" name="answer[]" class="form-control input-answer" placeholder="Fill this field" autocomplete="off" required>    
+                          </div>
+                        </div>
+                        <div class="row mb-2">
+                          <div class="col-2">
+                            <input type="text" class="form-control radio-answer" name="istrue[]" readonly value="">
+                          </div>
+                          <div class="col-10">
+                            <input type="text" name="answer[]" class="form-control input-answer" placeholder="Fill this field" autocomplete="off" required>    
+                          </div>
+                        </div>
+                        <div class="row mb-2">
+                          <div class="col-2">
+                            <input type="text" class="form-control radio-answer" name="istrue[]" readonly value="">
+                          </div>
+                          <div class="col-10">
+                            <input type="text" name="answer[]" class="form-control input-answer" placeholder="Fill this field" autocomplete="off" required>    
+                          </div>
+                        </div>
+                        <div class="row mb-2">
+                          <div class="col-2">
+                            <input type="text" class="form-control radio-answer" name="istrue[]" readonly value="">
+                          </div>
+                          <div class="col-10">
+                            <input type="text" name="answer[]" class="form-control input-answer" placeholder="Fill this field" autocomplete="off" required>    
+                          </div>
+                        </div>
+                        
+                      </div>
+                    </div>  
+                  </div>
+                </div>
+                  <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+              </form>
           </div>
           
         </div>
@@ -65,59 +107,34 @@
 
 @section('additionalscript')
 <script>
-  $(document).ready(function(){
-    
+
+  $('#modal-info').on('hidden.bs.modal', function(){
+    $('.radio-answer').css('background-color', '#E9ECEF')
+    $('.radio-answer').val('')
+    $('.input-answer').val('')
+    $('.input-question').val('')
+  })
+
+  $('.answer_number .radio-answer').on('click', function(){
+    $('.radio-answer').css('background-color', '#E9ECEF')
+    $('.radio-answer').val('')
+    $(this).css('background-color', '#28A745')
+    $(this).val('true')
   });
 
-  // $('.card-modal').on('click', function(){
-  //   let id = $(this).attr("data-id")
-  //   $('#students_table').DataTable({
-  //       processing: true,
-  //       serverSide: true,
-  //       ajax: {
-  //         url : "{{url('/class/gridviewstudents')}}",
-  //         data : {class_id : id},
-  //         type : "POST",
-  //         headers: {
-  //            'X-CSRF-TOKEN': "{{csrf_token()}}",
-  //         },
-  //       },
-  //       order: [[ 0, "asc" ]],
-  //       searching:true,
-  //       filter: true, 
-  //       destroy: true,
-  //       lengthMenu: [
-  //         [10, 50, 100, -1], 
-  //         ["10 DATA", "50 DATA", "100 DATA", "ALL"]
-  //       ],
-  //       columns: [
-  //           {target: 0, data: 'DT_RowIndex',orderable: false, searchable: false},
-  //           {target: 1, data: 'name'},
-  //           {target: 2, data: 'student_id', visible:false},
-  //       ],
-  //       dom: 'Bfrtip',
-  //       buttons: [
-  //           'print', 'copy', 'pdf', 'excel'
-  //          ],
-  //         language: {
-  //             buttons: {
-  //                 print: 'Print',
-  //                 copy: 'Copy',
-  //                 excel: 'Excel',
-  //                 pdf: 'Pdf'
-  //              }
-  //          },
-  //   });
-  // });
+  $('.button-create').on('click', function(){
+    let id = $(this).attr('data-id');
+    let url = "{{url('/subject/storebank')}}"+"/"+id
+    $('#quickform').attr('action', url)
+  })
 
-  // $('.detail-button').on('click', function(){
-  //   let id = $(this).attr("data-id")
-  //   window.open(
-  //       "{{url('/class/detail')}}"+"/"+id,  
-  //       '_blank', 
-  //       'width=950,height=800,resizable=yes,screenx=0,screeny=0'
-  //     );
-  // });
-
+  $('.button-view').on('click', function(){
+    let id = $(this).attr('data-id');
+    window.open(
+        "{{url('/subject/viewbank')}}"+"/"+id, 
+        '_blank', 
+        'width=800,height=500,resizable=yes,screenx=0,screeny=0'
+      );
+  });
 </script>
 @endsection

@@ -83,3 +83,16 @@
   <!-- /.card -->
 </div>
 @endsection
+
+@section('additionalscript')
+<script>
+   $('#hidetransparant').on('click', function(){
+    if($('#password').attr('type') == 'password'){
+      $('#password').attr('type', 'text')  
+    }else{
+      $('#password').attr('type', 'password')
+    }
+   });
+
+</script>
+@endsection
