@@ -200,4 +200,19 @@ class ClassController extends Controller
         }
         return redirect('/class/dailyreport');
     }
+
+    public function taskexam($id = '')
+    {   
+        $data['PARENTTAG'] = "class_management";
+        $data['CHILDTAG'] = "taskexam";
+        $user = Auth::user();
+        
+        $class = DB::table('employees')
+            ->join('schoolclasses', 'schoolclasses.teacher_id', '=', 'employees.id')
+            ->select('schoolclasses.name as class_name', 'schoolclasses.id as class_id', 'employees.name as teacher_name', 'employees.id as teacher_id')
+            ->get();
+
+        $data['class'] = $class;
+        return view('admin.class.taskexam', $data);
+    }
 }

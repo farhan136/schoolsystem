@@ -124,7 +124,7 @@
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{url('/class/taskexam')}}" class="nav-link <?= $CHILDTAG=='tes'?'active':'' ?>">
+                <a href="{{url('/class/taskexam')}}" class="nav-link <?= $CHILDTAG=='taskexam'?'active':'' ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tasks and Exams</p>
                 </a>

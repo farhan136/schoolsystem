@@ -31,6 +31,7 @@ Route::group(['middleware'=>'auth'], function(){ //yang berada didalam group ini
         Route::get('/detail/{id}', 'App\Http\Controllers\ClassController@detail');
         Route::get('/dailyreport/{id?}', 'App\Http\Controllers\ClassController@dailyreport');
         Route::post('/absencestudents', 'App\Http\Controllers\ClassController@absencestudents');
+        Route::get('/taskexam/{id?}', 'App\Http\Controllers\ClassController@taskexam');
     });
 
 
