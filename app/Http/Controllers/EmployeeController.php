@@ -52,7 +52,10 @@ class EmployeeController extends Controller
             ->select('prov_id', 'prov_name')
             ->orderBy('prov_id', 'asc')
             ->get();
-        return view('admin.employee.create', ['employee'=>$Employee, 'cities'=>$Cities, 'provinces'=>$Provinces]);
+        $Role = DB::table('subjects')
+            ->select('name', 'code')
+            ->get();
+        return view('admin.employee.create', ['employee'=>$Employee,'role'=>$Role, 'cities'=>$Cities, 'provinces'=>$Provinces]);
     }
 
     public function store(Request $request)
@@ -93,6 +96,7 @@ class EmployeeController extends Controller
         $employee->place_of_birth = $request->placeofbirth;
         $employee->date_of_birth = $request->dateofbirth;
         $employee->address = $request->address;
+        $employee->role = $request->role;
         $employee->created_at = date("Y-m-d H:i:s"); 
         $employee->updated_at = date("Y-m-d H:i:s"); 
         $employee->save();
@@ -103,7 +107,7 @@ class EmployeeController extends Controller
 
     public function edit($id, $detail ='')
     {
-        $employee = Employee::select('id', 'name', 'photo', 'date_of_birth', 'phone_number', 'marital_status', 'photo', 'place_of_birth', 'address', 'registration_number', 'email', 'religion', 'province', 'city', 'district','subdistrict')->where('id', $id)->first();
+        $employee = Employee::select('id', 'name', 'photo', 'date_of_birth', 'phone_number', 'marital_status', 'photo', 'place_of_birth', 'address', 'registration_number', 'email', 'religion', 'province', 'city', 'district','subdistrict', 'role')->where('id', $id)->first();
         $Provinces = DB::table('provinces')
             ->select('prov_id', 'prov_name')
             ->orderBy('prov_id', 'asc')
@@ -127,12 +131,16 @@ class EmployeeController extends Controller
             ->orderBy('subdis_id', 'asc')
             ->where('dis_id', $employee->district)
             ->get();
+        $Role = DB::table('subjects')
+            ->select('name', 'code')
+            ->get();
         $data['employee'] = $employee;
         $data['provinces'] = $Provinces;
         $data['cities'] = $Cities;
         $data['cities2'] = $Cities2;
         $data['districts'] = $Districts;
         $data['subdistricts'] = $Subdistricts;
+        $data['role'] = $Role;
         $data['disabled'] = '';
         $data['state'] = 'Edit';
         if ($detail != '') {
@@ -159,6 +167,7 @@ class EmployeeController extends Controller
             $employee->place_of_birth = $request->placeofbirth;
             $employee->date_of_birth = $request->dateofbirth;
             $employee->address = $request->address;
+            $employee->role = $request->role;
             if (!empty($request->file('photo'))) {
                 // menyimpan data file yang diupload ke variabel $file
                 $file = $request->file('photo');

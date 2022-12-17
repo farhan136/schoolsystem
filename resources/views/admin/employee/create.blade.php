@@ -114,6 +114,19 @@
                     </select>
                   </div>
                   <div class="form-group">
+                    <label>Role</label>
+                    <select class="form-control select2" style="width: 100%;" name="role" id="role" autocomplete="off" required>
+                      <option value="" selected></option>
+                      @foreach($role as $rowrole)
+                        @if($rowrole->code == 99)
+                          <option value="{{ $rowrole->code }}">{{ $rowrole->name }}</option>
+                        @else
+                          <option value="{{ $rowrole->code }}">Guru {{ $rowrole->name }}</option>
+                        @endif
+                      @endforeach
+                    </select>
+                  </div>
+                  <div class="form-group">
                     <label>Address</label>
                     <textarea name="address" class="form-control" placeholder="Enter address" autocomplete="off" required rows="5"></textarea>
                     @error('address')

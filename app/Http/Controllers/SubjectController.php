@@ -120,8 +120,6 @@ class SubjectController extends Controller
     {
         $questions = DB::table('questions')->where('subject_id', '=', $id)->get();
         $subjects = DB::table('subjects')->select('name')->where('id', '=', $id)->get();
-        // dd($questions);
-        // print_r($subjects);exit;
         $data = [
               'questions'=>$questions, 
               'subjects' => $subjects[0],

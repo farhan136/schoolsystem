@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="{{asset('/')}}plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Bootstrap CSS -->
   <!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
-  <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
   <!-- JQVMap -->
   <link rel="stylesheet" href="{{asset('/')}}plugins/jqvmap/jqvmap.min.css">
   <!-- Theme style -->
@@ -88,7 +88,7 @@
 <!-- AdminLTE App -->
 <script src="{{asset('/')}}dist/js/adminlte.js"></script>
 <!-- DataTables -->
-<script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('/')}}dist/js/pages/dashboard.js"></script>
 @yield('additionalscript')

@@ -113,13 +113,14 @@ class ClassController extends Controller
         $data['PARENTTAG'] = "class_management";
         $data['CHILDTAG'] = "class_management";
         $user = Auth::user();
+        // dd($user->registration_number);
         
         // $teacher = Employee::select('registration_number', 'name', 'id')->where('id', 80)->get();
         
         $class = DB::table('employees')
             ->join('schoolclasses', 'schoolclasses.teacher_id', '=', 'employees.id')
             ->select('schoolclasses.name as class_name', 'schoolclasses.id as class_id', 'employees.name as teacher_name', 'employees.id as teacher_id')
-            // ->where('employees.id', '=', $teacher[0]->id)
+            ->where('employees.registration_number', '=', $user->registration_number)
             ->get();
 
         $data['class'] = $class;
@@ -176,6 +177,7 @@ class ClassController extends Controller
         $class = DB::table('employees')
             ->join('schoolclasses', 'schoolclasses.teacher_id', '=', 'employees.id')
             ->select('schoolclasses.name as class_name', 'schoolclasses.id as class_id', 'employees.name as teacher_name', 'employees.id as teacher_id')
+            ->where('employees.registration_number', '=', $user->registration_number)
             ->get();
 
         $data['class'] = $class;
@@ -212,7 +214,58 @@ class ClassController extends Controller
             ->select('schoolclasses.name as class_name', 'schoolclasses.id as class_id', 'employees.name as teacher_name', 'employees.id as teacher_id')
             ->get();
 
+        // $taskexams = DB::table('taskexams')
+        //     ->leftjoin('question', 'taskexams.question_id', '=', 'questions.id')
+        //     ->rightjoin('subjects', 'taskexams.subject_id', '=', 'subjects.id')
+        //     ->rightjoin('schoolclasses', 'taskexams.class_id', '=', 'schoolclasses.id')
+        //     ->select('schoolclasses.name as class_name', 'schoolclasses.id as class_id', 'employees.name as teacher_name', 'employees.id as teacher_id')
+        //     ->get();
+
         $data['class'] = $class;
         return view('admin.class.taskexam', $data);
+    }
+
+    public function createtask($id = '')
+    {   
+        $subjects = DB::table('subjects')
+            ->select('name', 'id')
+            ->get();
+        $classes = DB::table('schoolclasses')
+            ->select('name', 'id')
+            ->get();
+        return view('admin.class.createtask', ['subjects'=>$subjects, 'classes'=>$classes]);
+    }
+
+    public function gridviewquestion(Request $request)
+    {   
+        $subject = $request->subject;
+        $level = $request->level;
+        $question = DB::table('questions')
+            ->select('id', 'question','true_answer')
+            ->where('subject_id', '=', $subject)
+            ->where('level', '=', $level)
+            ->get();
+
+        return Datatables::of($question)
+            ->addColumn('action', function ($question) {
+                return '<input type="checkbox" class="form-control" name="question[]" value="'.$question->id.'">';
+            })->rawColumns(['action'])->make();
+    }
+
+
+    public function storetask(Request $request)
+    {
+        return $request;
+
+        DB::table('taskexams')->insert([
+            'subject_id' => $request->subject,
+            'class_id' => $request->class,
+            'class_id' => $request->class,
+            'start_date'=>$request->startdate,
+            'end_date'=>$request->enddate,
+        ]);
+
+        echo "<script>window.opener.reloadDatatable();</script>";
+        echo "<script>window.close();</script>";
     }
 }

@@ -9,14 +9,15 @@
           <div class="col-sm-6">
             <h1 class="m-0">Task Exam Class</h1>
           </div>
-          
         </div>
       </div>
     </div>
     <div class="container-fluid">
       <div class="row">
-        @foreach($class as $rowclass)
         <section class="col-12">
+          <button class="btn btn-xs btn-success" id="add"><i class="glyphicon glyphicon-edit"></i>Add</button>
+          <br>
+          @foreach($class as $rowclass)
             <div class="card">
             <div class="row">
                <div class="col-4">
@@ -30,18 +31,9 @@
                   <button class="btn btn-xs btn-info detail-button" data-id="{{$rowclass->class_id}}"><i class="glyphicon glyphicon-edit"></i>Value</button>                
                </div>
             </div>
-            <!-- <div class="card-header border-transparent modal-lg">
-
-            </div>
-              <div class="card-body p-0">
-                
-                <br>
-                
-              </div> -->
-            </div>
-
-        </section>
+          </div>
         @endforeach
+        </section>
         
       </div>
     </div>
@@ -54,10 +46,6 @@
     // $('input[name="date_absence"]').attr('max', gettodaydate())
   });
 
-  // $('#modal-info').on('hidden.bs.modal', function(){
-  //   $('input[name="date_absence"]').val('')
-  // })
-
   function gettodaydate(){
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
@@ -66,6 +54,14 @@
     today = yyyy + '-' + mm + '-' + dd;
     return today
   }
+
+    $('#add').on('click', function(){
+      window.open(
+        "{{url('/class/taskexam/create')}}", 
+        '_blank', 
+        'width=800,height=500,resizable=yes,screenx=0,screeny=0'
+        );
+    });
 
 
 

@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('taskexams', function (Blueprint $table) {
@@ -18,19 +13,15 @@ return new class extends Migration
             $table->integer('subject_id');
             $table->integer('class_id');
             $table->string('question_id');
-            $table->string('duration');
+            $table->string('duration')->nullable();
             $table->string('start_date');
-            $table->string('end_date');
+            $table->string('end_date')->nullable();
             $table->string('created_by');
+            $table->string('updated_by');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('taskexams');

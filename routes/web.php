@@ -9,7 +9,7 @@ Route::group(['middleware'=>'guest'], function(){ //yang berada didalam group in
 });
 
 
-Route::group(['middleware'=>'auth'], function(){ //yang berada didalam group ini hanyta untuk yang sudah login
+Route::group(['middleware'=>'auth'], function(){ //yang berada didalam group ini hanya untuk yang sudah login
     Route::get('/', 'App\Http\Controllers\GeneralController@home')->name('home');
 
     Route::post('/getcity', 'App\Http\Controllers\GeneralController@getcity');
@@ -31,7 +31,10 @@ Route::group(['middleware'=>'auth'], function(){ //yang berada didalam group ini
         Route::get('/detail/{id}', 'App\Http\Controllers\ClassController@detail');
         Route::get('/dailyreport/{id?}', 'App\Http\Controllers\ClassController@dailyreport');
         Route::post('/absencestudents', 'App\Http\Controllers\ClassController@absencestudents');
+        Route::get('/taskexam/create', 'App\Http\Controllers\ClassController@createtask');
         Route::get('/taskexam/{id?}', 'App\Http\Controllers\ClassController@taskexam');
+        Route::post('/gridviewquestion', 'App\Http\Controllers\ClassController@gridviewquestion');
+        Route::post('/storetask', 'App\Http\Controllers\ClassController@storetask');
     });
 
 
