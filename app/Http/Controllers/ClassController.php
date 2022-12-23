@@ -113,15 +113,15 @@ class ClassController extends Controller
         $data['PARENTTAG'] = "class_management";
         $data['CHILDTAG'] = "class_management";
         $user = Auth::user();
-        // dd($user->registration_number);
-        
-        // $teacher = Employee::select('registration_number', 'name', 'id')->where('id', 80)->get();
-        
         $class = DB::table('employees')
             ->join('schoolclasses', 'schoolclasses.teacher_id', '=', 'employees.id')
-            ->select('schoolclasses.name as class_name', 'schoolclasses.id as class_id', 'employees.name as teacher_name', 'employees.id as teacher_id')
-            ->where('employees.registration_number', '=', $user->registration_number)
-            ->get();
+            ->select('schoolclasses.name as class_name', 'schoolclasses.id as class_id', 'employees.name as teacher_name', 'employees.id as teacher_id');
+        if($user->registration_number == '999999999999999'){
+            $class = $class->get();
+        }else{
+            $class = $class->where('employees.registration_number', '=', $user->registration_number)->get();
+        }
+        
 
         $data['class'] = $class;
         return view('admin.class.management', $data);
@@ -214,14 +214,14 @@ class ClassController extends Controller
             ->select('schoolclasses.name as class_name', 'schoolclasses.id as class_id', 'employees.name as teacher_name', 'employees.id as teacher_id')
             ->get();
 
-        // $taskexams = DB::table('taskexams')
-        //     ->leftjoin('question', 'taskexams.question_id', '=', 'questions.id')
-        //     ->rightjoin('subjects', 'taskexams.subject_id', '=', 'subjects.id')
-        //     ->rightjoin('schoolclasses', 'taskexams.class_id', '=', 'schoolclasses.id')
-        //     ->select('schoolclasses.name as class_name', 'schoolclasses.id as class_id', 'employees.name as teacher_name', 'employees.id as teacher_id')
-        //     ->get();
+        $taskexams = DB::table('taskexams')
+            ->leftjoin('employees', 'taskexams.created_by', '=', 'employees.registration_number')
+            ->leftjoin('subjects', 'taskexams.subject_id', '=', 'subjects.id')
+            ->leftjoin('schoolclasses', 'taskexams.class_id', '=', 'schoolclasses.id')
+            ->select('subjects.name as subject_name', 'taskexams.id as task_id', 'employees.name as teacher_name', 'schoolclasses.name as class_name')
+            ->get();
 
-        $data['class'] = $class;
+        $data['taskexams'] = $taskexams;
         return view('admin.class.taskexam', $data);
     }
 
@@ -255,14 +255,19 @@ class ClassController extends Controller
 
     public function storetask(Request $request)
     {
-        return $request;
-
+        $question = json_encode($request->question);
+        
         DB::table('taskexams')->insert([
             'subject_id' => $request->subject,
             'class_id' => $request->class,
-            'class_id' => $request->class,
+            'duration' => $request->duration,
             'start_date'=>$request->startdate,
             'end_date'=>$request->enddate,
+            'question_id'=>$question,
+            'created_at'=>date("Y-m-d H:i:s"),
+            'created_by'=>Auth::user()->registration_number,
+            'updated_at'=>null,
+            'updated_by'=>'',
         ]);
 
         echo "<script>window.opener.reloadDatatable();</script>";

@@ -161,9 +161,6 @@
 
 @section('additionalscript')
 <script type="text/javascript">
-  $(function () {
-    $( "#dateofbirth" ).datepicker();    
-  });
 
     $('#province').on('change', function(){
     let province_id = $('#province').val()
@@ -221,7 +218,6 @@
       },
       data : {'id': district_id},
       success: function(ret) { 
-          // console.log(ret);
           data = JSON.parse(ret);
           console.log(data)
           $.each(data, function (key, item) {

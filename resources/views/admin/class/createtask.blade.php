@@ -67,6 +67,17 @@
                     </div>
                   </div>
                   <div class="form-group">
+                    <label>Duration</label>
+                    <div class="row">
+                      <div class="col-11">
+                        <input type="number" name="duration" class="form-control select2" style="width: 100%;">
+                      </div>
+                      <div class="col-1">
+                        Min
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
                     <label>Pilih Level</label>
                     <select class="form-control select2" style="width: 100%;" name="level" autocomplete="off" id="level">
                       <option value="" selected></option>
@@ -105,7 +116,7 @@
 
 @section('additionalscript')
 <!-- DataTables -->
-<script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 
 <script type="text/javascript">
   $(document).ready(function(){

@@ -17,18 +17,18 @@
         <section class="col-12">
           <button class="btn btn-xs btn-success" id="add"><i class="glyphicon glyphicon-edit"></i>Add</button>
           <br>
-          @foreach($class as $rowclass)
+          @foreach($taskexams as $rowtaskexams)
             <div class="card">
             <div class="row">
                <div class="col-4">
                   <img src="{{asset('/picture/general/background.jpg')}}" style="width: 100%; height: 200px;"> 
                </div> 
                <div class="col-8">
-                  <h3 class="card-title">Ulangan </h3><br>
-                  <h5 class="card-title">Dibuat oleh : {{$rowclass->teacher_name}}</h5> 
+                  <h3 class="card-title">Ulangan {{$rowtaskexams->subject_name}} untuk kelas {{$rowtaskexams->class_name}}</h3><br>
+                  <h5 class="card-title">Dibuat oleh : {{$rowtaskexams->teacher_name}}</h5> 
                   <br>
-                  <button class="btn btn-xs btn-success card-modal" data-toggle="modal" data-target="#modal-info" data-id="{{$rowclass->class_id}}"><i class="glyphicon glyphicon-edit"></i>Attendance</button> 
-                  <button class="btn btn-xs btn-info detail-button" data-id="{{$rowclass->class_id}}"><i class="glyphicon glyphicon-edit"></i>Value</button>                
+                  <button class="btn btn-xs btn-success card-modal" data-toggle="modal" data-target="#modal-info"><i class="glyphicon glyphicon-edit"></i>Attendance</button> 
+                                  
                </div>
             </div>
           </div>
@@ -62,9 +62,6 @@
         'width=800,height=500,resizable=yes,screenx=0,screeny=0'
         );
     });
-
-
-
 
 </script>
 @endsection

@@ -44,7 +44,7 @@
           </button>
           </div>
           <div class="modal-body">
-                      <table id="students_table" class="table table-bordered table-striped">
+                      <table id="students_table" class="table table-bordered table-striped" style="width: 100%;">
                         <thead>
                         <tr>
                           <th style="width:5%">No</th>
@@ -96,10 +96,7 @@
         searching:true,
         filter: true, 
         destroy: true,
-        lengthMenu: [
-          [10, 50, 100, -1], 
-          ["10 DATA", "50 DATA", "100 DATA", "ALL"]
-        ],
+        paging:false,
         columns: [
             {target: 0, data: 'DT_RowIndex',orderable: false, searchable: false},
             {target: 1, data: 'name'},
